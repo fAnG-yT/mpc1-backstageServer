@@ -24,10 +24,10 @@
             <i class="iconfont icon-zhexiantu"></i>
             <span slot="title">信息统计</span>
           </el-menu-item>
-          <el-menu-item index="UserManage">
+          <!-- <el-menu-item index="UserManage">
             <i class="iconfont icon-yonghuguanli"></i>
             <span slot="title">用户管理</span>
-          </el-menu-item>
+          </el-menu-item> -->
         </el-menu>
       </el-aside>
       <!-- 右边主体区 -->

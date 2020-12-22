@@ -37,12 +37,12 @@
             <!--为echarts准备一个具备大小的容器dom-->
             <div
               id="chart_one"
-              style="width: 800px; height: 400px"
+              style="width: 800px; height: 500px"
               v-show="showChart == 0"
             ></div>
             <div
               id="chart_two"
-              style="width: 800px; height: 400px"
+              style="width: 800px; height: 500px"
               v-show="showChart == 1"
             ></div>
           </div>
