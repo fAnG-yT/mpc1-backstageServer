@@ -232,7 +232,7 @@ export default {
     async get_num(first_date, last_date) {
       const { data: res } = await this.$axios.post(
         "/v1/manage/statistics",
-        JSON.stringify(first_date, last_date)
+        JSON.stringify({data_from:first_date, data_to:last_date})
       );
       console.log(res);
       this.option1.xAxis.data = res.date_list;
