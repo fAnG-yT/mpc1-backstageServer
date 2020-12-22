@@ -3,6 +3,7 @@
     <el-card> </el-card>
     <el-card>
       <div class="container">
+        <!-- 图表 -->
         <div class="chart_container">
           <div class="icon">
             <div class="iconfont icon-zhexiantu" @click="showChart = 0"></div>
@@ -22,9 +23,10 @@
             ></div>
           </div>
         </div>
+        <!-- 时间选择器 -->
         <div class="block">
           <el-date-picker
-            v-model="value2"
+            v-model="date"
             type="daterange"
             align="right"
             unlink-panels
@@ -43,7 +45,7 @@
 export default {
   data() {
     return {
-      // 指定图表的配置项和数据可以放在data() 里面也可以放在自己定义的函数方法里面
+      // 折线图数据定义
       option1: {
         tooltip: {
           trigger: "axis",
@@ -61,15 +63,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: [
-            "8月1日",
-            "8月2日",
-            "8月3日",
-            "8月4日",
-            "8月5日",
-            "8月6日",
-            "8月7日",
-          ], //日期
+          data: [], //日期
         },
         yAxis: {
           type: "value",
@@ -114,7 +108,8 @@ export default {
           },
         ],
       },
-      option2:{
+      // 柱状图数据定义
+      option2: {
         title: {
           // text: "地区点位、设备核对进度",
           top: 5,
@@ -122,14 +117,26 @@ export default {
         },
         legend: {
           data: ["发布数量", "领取数量"],
-          top: 30,
+          // top: 30,
+        },
+        grid: {
+          //自定义折线图的大小
+          // x: "1%",//x 偏移量
+          y: "17%", // y 偏移量
+          width: "76%", // 宽度
+          height: "74%", // 高度
         },
         // X轴
         xAxis: {
-          data: ["一月", "二月", "三月", "四月", "五月"],
+          data: [],
         },
         // Y轴
-        yAxis: {},
+        yAxis: {
+          type: "value",
+          axisLabel: {
+            formatter: "{value} ",
+          },
+        },
         // 数据
         series: [
           {
@@ -144,11 +151,9 @@ export default {
           },
         ],
       },
-      abscissa: [],
-      draw_num: [],
-      public_num: [],
-      date: [],
+      // 显示哪种图表
       showChart: 0,
+      // element代码
       pickerOptions: {
         shortcuts: [
           {
@@ -180,19 +185,32 @@ export default {
           },
         ],
       },
-      value1: "",
-      value2: "",
+      // 绑定element时间选择器，再调用watch修改first_date与last_date
+      date: "",
+      // 发起请求的开始时间
+      first_date: "",
+      // 发起请求的结束时间
+      last_date: "",
     };
   },
   created() {
-    this.get_draw_num();
-    this.get_public_num();
+  //  初始化获取上周数据
+    this.set_date();
   },
   mounted() {
     this.myOneEcharts();
     this.draw();
   },
   methods: {
+    set_date() {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+      console.log(this.dateFormat(start));
+      console.log(this.dateFormat(end));
+       this.get_num(start,end);
+    },
+    // 初始化折线图
     myOneEcharts() {
       let that = this;
       var echarts = require("echarts");
@@ -201,6 +219,7 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(that.option1);
     },
+    // 初始化柱状图
     draw() {
       let that = this;
       var echarts = require("echarts");
@@ -209,15 +228,48 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(that.option2);
     },
-    get_draw_num() {},
-    get_public_num() {},
+    // 获取数据并修改折线图、柱状图信息
+    async get_num(first_date, last_date) {
+      const { data: res } = await this.$axios.post(
+        "/v1/manage/statistics",
+        JSON.stringify(first_date, last_date)
+      );
+      console.log(res);
+      this.option1.xAxis.data = res.date_list;
+      this.option2.xAxis.data = res.date_list;
+      this.option1.series[0].data = res.publish_list;
+      this.option2.series[0].data = res.publish_list;
+      this.option1.series[1].data = res.receive_list;
+      this.option2.series[1].data = res.receive_list;
+    },
+    // 格式化时间
+    dateFormat(dateData) {
+      var date = new Date(dateData);
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      const time = y + "-" + m + "-" + d;
+      return time;
+    },
+  },
+  watch: {
+    // 动态监听element时间选择器的时间发起请求，更新图表
+    date(value) {
+      this.first_date = this.dateFormat(value[0]);
+      this.last_date = this.dateFormat(value[1]);
+      console.log(this.first_date);
+      console.log(this.last_date);
+      this.get_num(this.first_date,this.last_date);
+    },
   },
 };
 </script>
 <style scoped lang="less">
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   height: 520px;
   .chart_container {
     height: 100%;
