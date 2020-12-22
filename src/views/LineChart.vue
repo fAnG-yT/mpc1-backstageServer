@@ -1,7 +1,8 @@
 <template>
   <div>
+    <div class="box"> 
     <!-- 统计发布领取 -->
-    <el-card>
+    <el-card class="totalBox" style="margin-right:10px">
       <div class="total">发布领取统计情况</div>
       <div v-for="item in publishList" 
       class="card"
@@ -13,7 +14,7 @@
       </div>
     </el-card>
     <!-- 统计活跃人数 -->
-    <el-card>
+    <el-card class="totalBox">
       <div class="total">活跃用户统计情况</div>
       <div v-for="item in dauList"
       class="card"
@@ -24,6 +25,7 @@
         <div>{{item.number}}人</div>
       </div>
     </el-card>
+    </div>
     <!-- 图表 -->
     <el-card>
       <div class="container">
@@ -352,6 +354,20 @@ export default {
 };
 </script>
 <style scoped lang="less">
+.box{
+  display: flex;
+  
+}
+
+.totalBox{
+  flex: 1 1 auto;
+}
+// .box::after{
+//   content: "";
+//   display: table;
+//   clear: both;
+// }
+
 .total{
   margin-left: 15px;
   margin-bottom: 5px;
@@ -391,7 +407,8 @@ export default {
 }
 
 .el-card{
-  margin-bottom:5px ;
+  margin-bottom:10px ;
+  // max-width: ;
 }
 
 .container {
