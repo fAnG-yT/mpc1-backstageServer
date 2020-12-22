@@ -13,12 +13,12 @@
             <!--为echarts准备一个具备大小的容器dom-->
             <div
               id="chart_one"
-              style="width: 600px; height: 400px"
+              style="width: 800px; height: 400px"
               v-show="showChart == 0"
             ></div>
             <div
               id="chart_two"
-              style="width: 600px; height: 400px"
+              style="width: 800px; height: 400px"
               v-show="showChart == 1"
             ></div>
           </div>
@@ -75,7 +75,7 @@ export default {
           {
             name: "发布数量",
             type: "line",
-            data: [90, 88, 100, 99, 96, 110, 100],
+            data: [],
             markLine: {
               data: [{ type: "average", name: "平均值" }],
             },
@@ -83,7 +83,7 @@ export default {
           {
             name: "领取数量",
             type: "line",
-            data: [55, 50, 78, 77, 90, 88, 79],
+            data: [],
             markLine: {
               //警示线 可以自己更改样式 位置 等
               data: [
@@ -142,12 +142,12 @@ export default {
           {
             name: "发布数量",
             type: "bar",
-            data: [120, 100, 440, 320, 150],
+            data: [],
           },
           {
             name: "领取数量",
             type: "bar",
-            data: [200, 120, 240, 330, 170],
+            data: [],
           },
         ],
       },
@@ -208,9 +208,37 @@ export default {
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
       console.log(this.dateFormat(start));
       console.log(this.dateFormat(end));
-       this.get_num(start,end);
+      this.get_num(this.dateFormat(start),this.dateFormat(end));
     },
-    // 初始化折线图
+    // 获取数据并修改折线图、柱状图信息
+    async get_num(first_date, last_date) {
+      console.log(JSON.stringify({data_from:first_date, data_to:last_date}))
+      const { data: res } = await this.$axios.post(
+        "/v1/manage/statistics/list",
+        JSON.stringify({data_from:first_date, data_to:last_date})
+      );
+      console.log(res);
+      this.option1.xAxis.data = res.data.date_list;
+      this.option2.xAxis.data = res.data.date_list;
+      this.option1.series[0].data = res.data.publish_list;
+      this.option2.series[0].data = res.data.publish_list;
+      this.option1.series[1].data = res.data.receive_list;
+      this.option2.series[1].data = res.data.receive_list;
+      this.myOneEcharts();
+      this.draw();
+    },
+    // 格式化时间
+    dateFormat(dateData) {
+      var date = new Date(dateData);
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      const time = y + "-" + m + "-" + d;
+      return time;
+    },
+     // 初始化折线图
     myOneEcharts() {
       let that = this;
       var echarts = require("echarts");
@@ -227,31 +255,6 @@ export default {
       var myChart = echarts.init(document.getElementById("chart_two"));
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(that.option2);
-    },
-    // 获取数据并修改折线图、柱状图信息
-    async get_num(first_date, last_date) {
-      const { data: res } = await this.$axios.post(
-        "/v1/manage/statistics",
-        JSON.stringify({data_from:first_date, data_to:last_date})
-      );
-      console.log(res);
-      this.option1.xAxis.data = res.date_list;
-      this.option2.xAxis.data = res.date_list;
-      this.option1.series[0].data = res.publish_list;
-      this.option2.series[0].data = res.publish_list;
-      this.option1.series[1].data = res.receive_list;
-      this.option2.series[1].data = res.receive_list;
-    },
-    // 格式化时间
-    dateFormat(dateData) {
-      var date = new Date(dateData);
-      var y = date.getFullYear();
-      var m = date.getMonth() + 1;
-      m = m < 10 ? "0" + m : m;
-      var d = date.getDate();
-      d = d < 10 ? "0" + d : d;
-      const time = y + "-" + m + "-" + d;
-      return time;
     },
   },
   watch: {
