@@ -13,10 +13,13 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
+sessionStorage.setItem('token',"aaaa")
 //axios请求拦截器
 axios.interceptors.request.use(config=>{
   // config.headers.token = localStorage.getItem("token")||""
+  
   var token = sessionStorage.getItem("token")
+  console.log(token)
   config.headers.token = token||""  
   return config
 },err=>{
