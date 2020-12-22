@@ -116,12 +116,12 @@ export default {
       },
       option2:{
         title: {
-          text: "地区点位、设备核对进度",
+          // text: "地区点位、设备核对进度",
           top: 5,
           left: "center",
         },
         legend: {
-          data: ["衣服", "帽子"],
+          data: ["发布数量", "领取数量"],
           top: 30,
         },
         // X轴
@@ -133,12 +133,12 @@ export default {
         // 数据
         series: [
           {
-            name: "衣服",
+            name: "发布数量",
             type: "bar",
             data: [120, 100, 440, 320, 150],
           },
           {
-            name: "帽子",
+            name: "领取数量",
             type: "bar",
             data: [200, 120, 240, 330, 170],
           },
@@ -189,12 +189,10 @@ export default {
     this.get_public_num();
   },
   mounted() {
-    //执行 myOneEcharts 方法后我们就可以看到折线图了
     this.myOneEcharts();
     this.draw();
   },
   methods: {
-    //在 moethods 里面创建一个方法在 mounted 里面调用
     myOneEcharts() {
       let that = this;
       var echarts = require("echarts");
