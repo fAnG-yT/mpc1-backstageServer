@@ -2,8 +2,8 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../assets/img/logo2.jpg" alt />
-        <span>mychat后台</span>
+        <img src="../assets/img/logo.png" alt />
+        <span>T饭友后台</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
@@ -20,17 +20,13 @@
           :router="true"
         >
           <!-- 这里加个@click 每点击一次重新获取一次好友列表从而达到刷新 -->
-          <el-menu-item index="hour">
-            <i class="iconfont icon-pengyouquan2"></i>
-            <span slot="title">小时活跃人数</span>
+          <el-menu-item index="LineChart">
+            <i class="iconfont icon-zhexiantu"></i>
+            <span slot="title">信息统计</span>
           </el-menu-item>
-          <el-menu-item index="day">
-            <i class="iconfont icon-jiahaoyou1"></i>
-            <span slot="title">天活跃人数</span>
-          </el-menu-item>
-          <el-menu-item index="week" >
-            <i class="iconfont icon-yonghu3"></i>
-            <span slot="title">周活跃人数</span>
+          <el-menu-item index="UserManage">
+            <i class="iconfont icon-yonghuguanli"></i>
+            <span slot="title">用户管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -44,7 +40,6 @@
 </template>
 
 <script>
-import { Script } from "vm";
 export default {
   created() {
     // this.apitest();
@@ -53,25 +48,8 @@ export default {
   methods: {
     logout() {
       window.sessionStorage.clear();
-      this.$router.push("/admin");
+      this.$router.push("/adminLogin");
     },
-    async apitest() {
-      const { data: res1 } = await this.$http.get(
-        "/mychat/backgroup/getHourlyUV"
-      );
-      console.log("接口一");
-      console.log(res1);
-      const { data: res2 } = await this.$http.get(
-        "/mychat/backgroup/getDailyUV"
-      );
-      console.log("接口二");
-      console.log(res2);
-      const { data: res3 } = await this.$http.get(
-        "/mychat/backgroup/getWeeklyUV"
-      );
-      console.log("接口三");
-      console.log(res3);
-    }
   }
 };
 </script>

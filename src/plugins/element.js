@@ -13,6 +13,8 @@ import {
     Main,
     Table,
     TableColumn,
+    DatePicker,
+    Card
 } from 'element-ui'
 
 Vue.use(Button)
@@ -27,4 +29,6 @@ Vue.use(MenuItem)
 Vue.use(Main)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(DatePicker)
+Vue.use(Card)
 Vue.prototype.$message = Message

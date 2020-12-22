@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminHome from '@/views/AdminHome'
 import AdminLogin from '@/views/AdminLogin'
-import hour from '@/views/hour'
-import managementGroup from '@/views/managementGroup'
+import LineChart from '@/views/LineChart'
+import UserManage from '@/views/UserManage'
 
 Vue.use(VueRouter)
 
@@ -22,13 +22,14 @@ const routes = [{
     path: '/AdminHome',
     name: '管理员首页',
     component: AdminHome,
+    redirect:'LineChart',
     children: [{
-        path: '/hour',
-        component: hour
+        path: '/LineChart',
+        component: LineChart
       },
       {
-        path: '/day',
-        component: managementGroup
+        path: '/UserManage',
+        component: UserManage
       }
     ]
   },
