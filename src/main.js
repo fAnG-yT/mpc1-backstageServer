@@ -16,7 +16,9 @@ Vue.config.productionTip = false
 //axios请求拦截器
 axios.interceptors.request.use(config=>{
   // config.headers.token = localStorage.getItem("token")||""
+  
   var token = sessionStorage.getItem("token")
+  console.log(token)
   config.headers.token = token||""  
   return config
 },err=>{

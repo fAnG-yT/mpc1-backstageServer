@@ -3,7 +3,7 @@
     <el-header>
       <div>
         <img src="../assets/img/logo.png" alt />
-        <span>T饭友后台</span>
+        <span>T饭友后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
@@ -70,18 +70,20 @@ export default {
     align-items: center;
   }
   img {
-    height: 60px;
-    width: 75px;
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
   }
 
   span {
     color: #fff;
-    font-size: 20px;
+    font-size: 17px;
     margin-left: 15px;
   }
 }
 
 .el-aside {
+  width: 200px!important;
   background-color: #333744;
   .el-menu {
     border-right: none;
