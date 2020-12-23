@@ -77,8 +77,10 @@ export default {
             admin:1
           })
         );
-        if (res.success === false)
+        console.log(res)
+        if (res.code!=200)
           return this.$message.error("用户名或密码错误！");
+
         this.$message.success("登录成功！");
         console.log(res.data.token);
         // 1.将登录成功后的token，保存到客户端的sessionStorage中
@@ -86,7 +88,7 @@ export default {
         //      1.2token只应在当前网站打开期间生效,所以讲token保存在sessionStorage中
         window.sessionStorage.setItem("token", res.data.token);
         //通过编程式导航跳转到主页面，路由地址是 /home
-        this.$router.push("/adminHome");
+        this.$router.replace("/adminHome");
       ;
     },
   },

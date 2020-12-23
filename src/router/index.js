@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminHome from '@/views/AdminHome'
 import AdminLogin from '@/views/AdminLogin'
-import LineChart from '@/views/LineChart'
-import UserManage from '@/views/UserManage'
+import Publish from '@/views/Publish'
+import DAU from '@/views/DAU'
 
 Vue.use(VueRouter)
 
@@ -24,13 +24,12 @@ const routes = [{
     component: AdminHome,
     redirect:'LineChart',
     children: [{
-        path: '/LineChart',
-        component: LineChart
-      },
-      {
-        path: '/UserManage',
-        component: UserManage
-      }
+        path: '/lineChart',
+        component: Publish,
+        },{
+        path: '/dau',
+        component: DAU,
+        },
     ]
   },
 ]
@@ -41,18 +40,6 @@ const router = new VueRouter({
 })
 
 
-// 挂载路由导航守卫
-router.beforeEach((to, from, next) => {
-  // to代表将要访问的路径 
-  // from代表从哪个路径跳转而来
-  // next是一个函数表示放行
-  // next()  next('/login')表示要强制跳转的路径
-  if (to.path === '/adminLogin') return next();
-  // 获取token
-  const tokenStr = window.sessionStorage.getItem('token');
-  if (!tokenStr) return next('/adminLogin');
-  next();
-})
 
 
 export default router
