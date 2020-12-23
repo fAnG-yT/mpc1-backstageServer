@@ -60,7 +60,7 @@ export default {
 }
 
 .el-header {
-  background-color: rgb(55, 61, 65);
+  background-color: #38A28A;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,6 +90,12 @@ export default {
   }
 }
 
+.el-button {
+  background-color: #fff;
+  color: #38A28A;
+  border: none;
+}
+
 .el-main {
   background-color: #eaedf1;
 }
@@ -110,7 +116,7 @@ export default {
 }
 
 .toggle-button {
-  background-color: #4a5064;
+  background-color: #38A28A;
   font-size: 10px;
   line-height: 24px;
   color: #fff;
