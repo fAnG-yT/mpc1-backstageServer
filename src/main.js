@@ -14,9 +14,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
+var vm = new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+
 //axios请求拦截器
 axios.interceptors.request.use(config=>{
-  // config.headers.token = localStorage.getItem("token")||""
+// config.headers.token = localStorage.getItem("token")||""
   
   var token = sessionStorage.getItem("token")
   console.log(token)
@@ -27,13 +32,24 @@ axios.interceptors.request.use(config=>{
   return err
 })
 
+//axios响应拦截器
+// axios.interceptors.response.use(config=>{
+//   console.log(config)
+//   if(config.data.code==206||config.data.code==900){
+//     vm.$message.error('登录失效,请重新登录')
+//     // setTimeout(()=>{
+//     vm.$router.replace('/adminLogin')
+//   }
+//   else return config
+// },err=>{
+//   console.log(err)
+//   return err
+// })
 
 
 
-var vm = new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+
+
 
 
 // 挂载路由导航守卫

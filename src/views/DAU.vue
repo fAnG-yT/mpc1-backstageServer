@@ -236,10 +236,16 @@
                     this.$axios.post(
                     '/v1/manage/statistics/active_sum'
                     ).then(res => {
-                        console.log(res)
-                        this.dauList[0].number = res.data.data.one_hour_num
-                        this.dauList[1].number = res.data.data.one_day_num
-                        this.dauList[2].number = res.data.data.one_week_num
+                        if(res.data.code==200){
+                            this.dauList[0].number = res.data.data.one_hour_num
+                            this.dauList[1].number = res.data.data.one_day_num
+                            this.dauList[2].number = res.data.data.one_week_num 
+                        }else{
+                            this.$message.error('登录失效,请重新登录')
+                            this.$router.replace('/adminLogin')
+
+                        }
+                        
                     }).catch(err => {
                         console.log(err)
                     })
@@ -263,15 +269,22 @@
                 const { data: res } = await this.$axios.post(
                     "/v1/manage/statistics/active",
                     JSON.stringify({data_from:first_date, data_to:last_date})
-                );
-                console.log(res);
-                var time_list = res.data['time-list'].map((v)=>v.split(" ")[1]||v)
-                this.option1.xAxis.data = time_list;
-                this.option2.xAxis.data = time_list;
-                this.option1.series[0].data = res.data.result_list;
-                this.option2.series[0].data = res.data.result_list;
-                this.myOneEcharts();
-                this.draw();
+                ).catch(e=>{
+                    console.log(e)
+                });
+                if(res.code==200){
+                    var time_list = res.data['time-list'].map((v)=>v.split(" ")[1]||v)
+                    this.option1.xAxis.data = time_list;
+                    this.option2.xAxis.data = time_list;
+                    this.option1.series[0].data = res.data.result_list;
+                    this.option2.series[0].data = res.data.result_list;
+                    this.myOneEcharts();
+                    this.draw();
+                }else{
+                    this.$message.error('登录失效,请重新登录')
+                    this.$router.replace('/adminLogin')
+
+                }
             },
             // 格式化时间
             dateFormat(dateData) {
