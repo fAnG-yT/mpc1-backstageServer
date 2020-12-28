@@ -12,22 +12,30 @@
       <!-- 侧边栏 -->
       <el-aside >
         <el-menu
+          class="el-menu-vertical-demo"
           background-color="#333744"
           text-color="#fff"
           active-text-color="#409eff"
-          unique-opened
           :collapse-transition="false"
           :router="true"
+          default-active="LineChart"
         >
-          <!-- 这里加个@click 每点击一次重新获取一次好友列表从而达到刷新 -->
-          <el-menu-item index="LineChart">
-            <i class="iconfont icon-zhexiantu"></i>
-            <span slot="title">信息统计</span>
-          </el-menu-item>
-          <!-- <el-menu-item index="UserManage">
-            <i class="iconfont icon-yonghuguanli"></i>
-            <span slot="title">用户管理</span>
-          </el-menu-item> -->
+        <el-submenu index='1'>
+          <template slot="title">
+            <i class="iconfont icon-tongji"></i>
+            <span>信息统计</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="LineChart">
+              <i class="iconfont icon-zhexiantu"></i>
+              <span slot="title">领取发布</span>
+            </el-menu-item>
+            <el-menu-item index="DAU">
+              <i class="iconfont icon-huoyuedu"></i>
+              <span slot="title">活跃用户</span>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 右边主体区 -->
@@ -41,10 +49,6 @@
 
 <script>
 export default {
-  created() {
-    // this.apitest();
-    // this.applyFriendList();
-  },
   methods: {
     logout() {
       window.sessionStorage.clear();
