@@ -6,9 +6,12 @@
         <img src="../assets/img/logo1.jpg" alt />
       </div>
       <!-- 登录表单区域 -->
-      <el-form ref="loginFromRef" class="login_form">
+      <el-form
+        ref="loginFromRef"
+        class="login_form"
+      >
         <!-- 用户名 -->
-        <el-form-item prop="username">
+        <el-form-item prop="chatNum">
           <el-input
             v-model="username"
             prefix-icon="iconfont icon-yonghu"
@@ -41,7 +44,7 @@ export default {
       // 这是表单验证规则对象
       loginFormRules: {
         // 验证用户名是否合法
-        username: [
+        chatNum: [
           { required: true, message: "请输入用户账号", trigger: "blur" },
           {
             min: 3,
@@ -66,7 +69,6 @@ export default {
   },
   methods: {
     async login() {
-      if (this.username != "" || this.password != "") {
         const { data: res } = await this.$axios.post(
           "/v1/manage/login",
           JSON.stringify({
@@ -74,27 +76,18 @@ export default {
             password: this.password,
           })
         );
-        console.log(res);
-        if (res.code == 102) {
-          return this.$message.error("该账号未注册！");
-        } else if (res.code == 200) {
-          this.$message.success("登录成功！");
-          console.log(res.data.token);
-          // 1.将登录成功后的token，保存到客户端的sessionStorage中
-          //      1.1项目中除了登录之外的其他API接口必须在登录只能才能访问
-          //      1.2token只应在当前网站打开期间生效,所以讲token保存在sessionStorage中
-          window.sessionStorage.setItem("token", res.data.token);
-          //通过编程式导航跳转到主页面，路由地址是 /home
-          this.$router.push("/adminHome");
-        } else if (res.code == 103) {
-          return this.$message.error("输入的信息不完整");
-        } else if (res.code == 206) {
-          return this.$message.error("该账号非管理员！");
-        } else {
-          return this.$message.error("账号密码错误！");
-        }
-      }
-      else return this.$message.error("输入账号密码");
+        console.log(res)
+        if (res.code != 200)
+          return this.$message.error("用户名或密码错误！");
+        this.$message.success("登录成功！");
+        console.log(res.data.token);
+        // 1.将登录成功后的token，保存到客户端的sessionStorage中
+        //      1.1项目中除了登录之外的其他API接口必须在登录只能才能访问
+        //      1.2token只应在当前网站打开期间生效,所以讲token保存在sessionStorage中
+        window.sessionStorage.setItem("token", res.data.token);
+        //通过编程式导航跳转到主页面，路由地址是 /home
+        this.$router.push("/adminHome");
+      ;
     },
   },
 };
