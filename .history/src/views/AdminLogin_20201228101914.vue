@@ -20,7 +20,6 @@
             v-model="password"
             prefix-icon="iconfont icon-mima"
             type="password"
-            @keyup.enter.native="login"
           ></el-input>
         </el-form-item>
         <!-- 按钮 -->

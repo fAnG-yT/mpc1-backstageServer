@@ -151,116 +151,116 @@ export default {
           },
         ],
       },
-    //   option2: {
-    //     title: {
-    //     //   text: "某地区蒸发量和降水量",
-    //     //   subtext: "纯属虚构",
-    //     },
-    //     tooltip: {
-    //       trigger: "axis",
-    //     },
-    //     legend: {
-    //       data: ["发布数量", "领取数量"],
-    //     },
-    //     toolbox: {
-    //       show: true,
-    //       feature: {
-    //         dataView: { show: true, readOnly: false },
-    //         magicType: { show: true, type: ["line", "bar"] },
-    //         restore: { show: true },
-    //         saveAsImage: { show: true },
-    //       },
-    //     },
-    //     calculable: true,
-    //     xAxis: [
-    //       {
-    //         type: "category",
-    //         data: [
-    //         ],
-    //       },
-    //     ],
-    //     yAxis: [
-    //       {
-    //         type: "value",
-    //       },
-    //     ],
-    //     series: [
-    //       {
-    //         name: "发布数量",
-    //         type: "bar",
-    //         data: [
-    //         ],
-    //         // markPoint: {
-    //         //   data: [
-    //         //     { type: "max", name: "最大值" },
-    //         //     { type: "min", name: "最小值" },
-    //         //   ],
-    //         // },
-    //         markLine: {
-    //           data: [{ type: "average", name: "平均值" }],
-    //         },
-    //       },
-    //       {
-    //         name: "领取数量",
-    //         type: "bar",
-    //         data: [
-    //         ],
-    //         // markPoint: {
-    //         //   data: [
-    //         //     { name: "年最高", value: 182.2, xAxis: 7, yAxis: 183 },
-    //         //     { name: "年最低", value: 2.3, xAxis: 11, yAxis: 3 },
-    //         //   ],
-    //         // },
-    //         markLine: {
-    //           data: [{ type: "average", name: "平均值" }],
-    //         },
-    //       },
-    //     ],
-    //   },
-
-    //   柱状图数据定义
       option2: {
         title: {
-          // text: "地区点位、设备核对进度",
-          top: 5,
-          left: "center",
+        //   text: "某地区蒸发量和降水量",
+        //   subtext: "纯属虚构",
+        },
+        tooltip: {
+          trigger: "axis",
         },
         legend: {
           data: ["发布数量", "领取数量"],
-          // top: 30,
         },
-        grid: {
-          //自定义折线图的大小
-          // x: "1%",//x 偏移量
-          y: "17%", // y 偏移量
-          width: "76%", // 宽度
-          height: "74%", // 高度
-        },
-        // X轴
-        xAxis: {
-          data: [],
-        },
-        // Y轴
-        yAxis: {
-          type: "value",
-          axisLabel: {
-            formatter: "{value} ",
+        toolbox: {
+          show: true,
+          feature: {
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ["line", "bar"] },
+            restore: { show: true },
+            saveAsImage: { show: true },
           },
         },
-        // 数据
+        calculable: true,
+        xAxis: [
+          {
+            type: "category",
+            data: [
+            ],
+          },
+        ],
+        yAxis: [
+          {
+            type: "value",
+          },
+        ],
         series: [
           {
             name: "发布数量",
             type: "bar",
-            data: [],
+            data: [
+            ],
+            // markPoint: {
+            //   data: [
+            //     { type: "max", name: "最大值" },
+            //     { type: "min", name: "最小值" },
+            //   ],
+            // },
+            markLine: {
+              data: [{ type: "average", name: "平均值" }],
+            },
           },
           {
             name: "领取数量",
             type: "bar",
-            data: [],
+            data: [
+            ],
+            // markPoint: {
+            //   data: [
+            //     { name: "年最高", value: 182.2, xAxis: 7, yAxis: 183 },
+            //     { name: "年最低", value: 2.3, xAxis: 11, yAxis: 3 },
+            //   ],
+            // },
+            markLine: {
+              data: [{ type: "average", name: "平均值" }],
+            },
           },
         ],
       },
+
+      // 柱状图数据定义
+    //   option2: {
+    //     title: {
+    //       // text: "地区点位、设备核对进度",
+    //       top: 5,
+    //       left: "center",
+    //     },
+    //     legend: {
+    //       data: ["发布数量", "领取数量"],
+    //       // top: 30,
+    //     },
+    //     grid: {
+    //       //自定义折线图的大小
+    //       // x: "1%",//x 偏移量
+    //       y: "17%", // y 偏移量
+    //       width: "76%", // 宽度
+    //       height: "74%", // 高度
+    //     },
+    //     // X轴
+    //     xAxis: {
+    //       data: [],
+    //     },
+    //     // Y轴
+    //     yAxis: {
+    //       type: "value",
+    //       axisLabel: {
+    //         formatter: "{value} ",
+    //       },
+    //     },
+    //     // 数据
+    //     series: [
+    //       {
+    //         name: "发布数量",
+    //         type: "bar",
+    //         data: [],
+    //       },
+    //       {
+    //         name: "领取数量",
+    //         type: "bar",
+    //         data: [],
+    //       },
+    //     ],
+    //   },
       // 显示哪种图表
       showChart: 0,
       // element代码
@@ -361,10 +361,8 @@ export default {
       if (res.code == 200) {
         this.option1.xAxis.data = res.data.date_list;
         this.option2.xAxis.data = res.data.date_list;
-        console.log(this.option2.xAxis.data,'----')
         this.option1.series[0].data = res.data.publish_list;
         this.option2.series[0].data = res.data.publish_list;
-        console.log(this.option2.series[0].data,'21222')
         this.option1.series[1].data = res.data.receive_list;
         this.option2.series[1].data = res.data.receive_list;
         this.myOneEcharts();
