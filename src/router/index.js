@@ -4,6 +4,7 @@ import AdminHome from '@/views/AdminHome'
 import AdminLogin from '@/views/AdminLogin'
 import Publish from '@/views/Publish'
 import DAU from '@/views/DAU'
+import Menu from '@/views/Menu'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,9 @@ const routes = [{
         },{
         path: '/dau',
         component: DAU,
+        },{
+        path: '/menu',
+        component: Menu,
         },
     ]
   },
