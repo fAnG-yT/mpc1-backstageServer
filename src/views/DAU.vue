@@ -234,7 +234,7 @@
         methods: {
             getTotal(){
                     this.$axios.post(
-                    '/v1/manage/statistics/active_sum'
+                    '/v1/manage/statistics/active-sum'
                     ).then(res => {
                         if(res.data.code==200){
                             this.dauList[0].number = res.data.data.one_hour_num
