@@ -52,20 +52,20 @@ axios.interceptors.request.use(config=>{
 
 
 
-// 挂载路由导航守卫
-router.beforeEach((to, from, next) => {
-  // to代表将要访问的路径 
-  // from代表从哪个路径跳转而来
-  // next是一个函数表示放行
-  // next()  next('/login')表示要强制跳转的路径
-  if (to.path === '/adminLogin') return next();
-  // 获取token
-  const tokenStr = window.sessionStorage.getItem('token');
-  if (!tokenStr) {
-    vm.$message.error('登录失败,请重新登录')
-    // setTimeout(()=>{
-      next('/adminLogin');
-    // },00)
-  }
-  else next();
-})
+// // 挂载路由导航守卫
+// router.beforeEach((to, from, next) => {
+//   // to代表将要访问的路径 
+//   // from代表从哪个路径跳转而来
+//   // next是一个函数表示放行
+//   // next()  next('/login')表示要强制跳转的路径
+//   if (to.path === '/adminLogin') return next();
+//   // 获取token
+//   const tokenStr = window.sessionStorage.getItem('token');
+//   if (!tokenStr) {
+//     vm.$message.error('登录失败,请重新登录')
+//     // setTimeout(()=>{
+//       next('/adminLogin');
+//     // },00)
+//   }
+//   else next();
+// })

@@ -36,6 +36,18 @@
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+        <el-submenu>
+          <template slot="title">
+            <i class="iconfont icon-shezhi01"></i>
+            <span>移动端设置</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="Menu">
+              <i class="iconfont icon-caidan"></i>
+              <span slot="title">上传菜单</span>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 右边主体区 -->
