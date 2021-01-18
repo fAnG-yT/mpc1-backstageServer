@@ -31,9 +31,9 @@ const routes = [{
         path: '/dau',
         component: DAU,
         },{
-        path: '/menu',
-        component: Menu,
-        },
+          path:'/menu',
+          component:Menu
+        }
     ]
   },
 ]

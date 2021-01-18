@@ -36,17 +36,16 @@
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu>
+        <el-submenu index="2">
           <template slot="title">
-            <i class="iconfont icon-tongji"></i>
-            <span>下午茶菜单</span>
+            <i class="iconfont icon-shezhi01"></i>
+            <span>移动端设置</span>
           </template>
           <el-menu-item-group>
             <el-menu-item index="Menu">
-              <i class="iconfont icon-zhexiantu"></i>
+              <i class="iconfont icon-caidan"></i>
               <span slot="title">上传菜单</span>
             </el-menu-item>
-
           </el-menu-item-group>
         </el-submenu>
         </el-menu>
